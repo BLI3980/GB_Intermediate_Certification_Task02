@@ -1,19 +1,17 @@
 package View;
 
 import Model.Store.StoreAbstract;
-import Model.Store.TeenStore;
+import Model.Toys.Toy;
 
-import java.util.Iterator;
+public class ViewMethods {
+    private StoreAbstract<Toy> storeItems;
 
-public class ViewMethods implements Iterable<StoreAbstract>{
-    private StoreAbstract storeItems;
-
-    public void printStoreItems(StoreAbstract items) {
+    public void printStoreItems(StoreAbstract<Toy> items) {
         System.out.printf("\nCurrent %s stock is as follows: \n",items.getStoreName().toUpperCase());
         separator();
         System.out.printf("\n%12s %14s %15s %13s %17s %15s\n",
                 "ID", "NAME", "QUANTITY", "W-FACTOR", "CATEGORY", "AGE GROUP");
-        items.forEach(item -> System.out.println(item));
+        items.forEach(System.out::println);
         separator();
         System.out.println();
     }
@@ -24,8 +22,4 @@ public class ViewMethods implements Iterable<StoreAbstract>{
         }
     }
 
-    @Override
-    public Iterator<StoreAbstract> iterator() {
-        return storeItems.iterator();
-    }
 }

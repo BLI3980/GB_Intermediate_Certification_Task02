@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class StoreAbstract<T extends Toy> implements Iterable<T>{
+public abstract class StoreAbstract<T extends Toy> implements Iterable<Toy>{
 
     private String storeName;
-    private List<T> toyStore;
+    private List<Toy> toyStore;
 
     public StoreAbstract(String storeName) {
         this.storeName = storeName;
@@ -19,11 +19,12 @@ public abstract class StoreAbstract<T extends Toy> implements Iterable<T>{
     public StoreAbstract() {
     }
 
-    public void addToy(T newToy) {
+    public StoreAbstract<T> addToy(T newToy) {
         toyStore.add(newToy);
+        return this;
     }
 
-    public Iterator<T> iterator() {
+    public Iterator<Toy> iterator() {
         return toyStore.iterator();
     }
 

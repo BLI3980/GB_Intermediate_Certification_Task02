@@ -1,40 +1,27 @@
 package Model.Store;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import Model.Toys.Teenager;
+import Model.Toys.Toy;
 
-public class Store /*<S extends StoreAbstract>*/ extends StoreAbstract implements Iterable/*,Iterator*/ {
+public class Store<T extends Toy> extends StoreAbstract<T>{
 
-    private String storeName;
-    private List<StoreAbstract> substore;
 
     public Store(String storeName) {
         super(storeName);
-        this.substore = new ArrayList<>();
     }
 
-    public void addSubStore(StoreAbstract newSubStore) {
-        this.substore.add(newSubStore);
+    public Store() {
+        super();
     }
 
-//    @Override
-//    public Iterator iterator() {
-//        return substore.iterator();
-//    }
     @Override
-    public Iterator<StoreAbstract> iterator(){
-        return new Iterator<StoreAbstract>() {
-            int index = 0;
-            @Override
-            public boolean hasNext() {
-                return index < substore.size();
-            }
+    public Store<T> addToy(T newToy) {
+        super.addToy(newToy);
+        return this;
+    }
 
-            @Override
-            public StoreAbstract next() {
-                return substore.get(index++);
-            }
-        };
+    @Override
+    public String toString() {
+        return "SubStore: " +super.toString();
     }
 }

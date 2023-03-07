@@ -10,7 +10,7 @@ public abstract class Toy {
 
     private double w_factor;
 
-    public Toy(String name, int qty, double w_factor) {
+    public Toy(String name, int qty, double w_factor, double cum_weight) {
         String rand_id = UUID.randomUUID().toString().substring(0,6);
         this.id = String.format("id_%s",rand_id);
         this.name = name;
@@ -19,10 +19,10 @@ public abstract class Toy {
     }
 
     // Getters
+
     public String getId() {
         return id;
     }
-
     public String getName() {
         return name;
     }
@@ -35,11 +35,12 @@ public abstract class Toy {
         return w_factor;
     }
 
+
     // Setters
+
     public void setId(String id) {
         this.id = id;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -51,6 +52,7 @@ public abstract class Toy {
     public void setW_factor(double w_factor) {
         this.w_factor = w_factor;
     }
+
 
     // To String
     @Override
