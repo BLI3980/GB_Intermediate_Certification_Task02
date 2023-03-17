@@ -1,3 +1,4 @@
+import Model.Raffle.Raffle;
 import Model.Store.Store;
 import Model.Toys.*;
 import View.ViewMethods;
@@ -27,6 +28,15 @@ public class Main {
 
         ViewMethods print1 = new ViewMethods();
         print1.printStoreItems(toyStore);
+
+        Raffle<Toy> newRaffle = new Raffle<>(toyStore);
+
+//        for (Raffle.RaffleToy item: newRaffle.fillList()) {
+//            System.out.println(item);
+//        }
+        for (int i = 0; i < 10; i++) {
+            System.out.println(newRaffle.draw());
+        }
 
 
     }

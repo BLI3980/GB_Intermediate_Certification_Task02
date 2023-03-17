@@ -5,12 +5,10 @@ import java.util.UUID;
 public abstract class Toy {
     private String id;
     private String name;
-
     private int qty;
-
     private double w_factor;
 
-    public Toy(String name, int qty, double w_factor, double cum_weight) {
+    public Toy(String name, int qty, double w_factor) {
         String rand_id = UUID.randomUUID().toString().substring(0,6);
         this.id = String.format("id_%s",rand_id);
         this.name = name;
