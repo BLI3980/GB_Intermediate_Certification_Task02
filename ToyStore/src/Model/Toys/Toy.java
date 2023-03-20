@@ -16,7 +16,9 @@ public abstract class Toy {
         this.w_factor = w_factor;
     }
 
-    // Getters
+    public Toy() {
+    }
+// Getters
 
     public String getId() {
         return id;

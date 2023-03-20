@@ -12,6 +12,11 @@ public class Teenager <C extends Category, A extends Ageable> extends Toy{
 
     }
 
+
+    public Teenager() {
+        super();
+    }
+
     // Getters
     public C getCategory() {
         return category;

@@ -4,7 +4,6 @@ import Model.Store.Store;
 import Model.Toys.Toy;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -29,6 +28,7 @@ public class Raffle<T extends Toy> /*implements Iterable<Store<Toy>>*/{
 //        RaffleToy list = new RaffleToy();
         for (Toy item: store) {
             accumulatedWeight += item.getW_factor();
+//            System.out.println(accumulatedWeight);
             RaffleToy raffleToy = new RaffleToy();
             raffleToy.toy = (T) item;
             raffleToy.accWeight = accumulatedWeight;
@@ -39,18 +39,26 @@ public class Raffle<T extends Toy> /*implements Iterable<Store<Toy>>*/{
         return raffleList;
     }
 
-    public T draw() {
-        double random = new Random().nextDouble() /** accumulatedWeight*/;
+    public String draw() {
+        accumulatedWeight = 0;
+//        System.out.println("\naccumulatedWeight "+accumulatedWeight);
+        List<RaffleToy> raffleList = fillList();
+        double random = new Random().nextDouble()*accumulatedWeight;
 
-
-        for (RaffleToy item: fillList()) {
-            System.out.println(item.toy);
-            System.out.println(random);
-            System.out.println(item.accWeight);
-//            if(item.accWeight >= random) {
-//                return item.toy;
-//            }
+        for (RaffleToy item: raffleList) {
+//            System.out.println("\naccumulatedWeight "+accumulatedWeight);
+//            System.out.println("toy "+item.toy);
+//            System.out.println("toy weight "+item.accWeight);
+//            System.out.println("random number "+random);
+//            System.out.printf("random number %f + accumulatedWeight %f = %f\n",
+//                    random, accumulatedWeight, random*accumulatedWeight);
+            if(item.accWeight >= random) {
+//                System.out.println("\nTHE PRIZE IS: ");
+                return item.toy.getName();
+            }
         }
+
+//        System.out.println("\naccumulatedWeight "+accumulatedWeight);
         return null;
     }
 

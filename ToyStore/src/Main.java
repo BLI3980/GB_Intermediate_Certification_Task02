@@ -1,7 +1,8 @@
+import Controller.Controller;
 import Model.Raffle.Raffle;
 import Model.Store.Store;
 import Model.Toys.*;
-import View.ViewMethods;
+import View.Views;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,7 +16,8 @@ public class Main {
                 0.25, new StuffedToy(), new OneYearPlus()))
                 .addToy(new PreSchool<Category,Ageable>("Spider Man", 30,
                         0.45, new PlaySet(), new ThreeYearPlus()));
-
+//        toy1.setAgeGroup(new ThreeYearPlus());
+        toy1.setW_factor(0.17);
 
 
         Teenager<Category,Ageable> toy2 = new Teenager<>( "Marvel Puzzle",
@@ -24,20 +26,26 @@ public class Main {
         toyStore.addToy(new Teenager<>( "Tank", 15,
                 0.05, new Constructor(), new TenYearPlus()));
 
+//        for (Toy item: toyStore) {
+//            if (item.getName().equals("Spider Man")) {
+//                item.setQty(31);
+//            }
+//        }
 
-
-        ViewMethods print1 = new ViewMethods();
+        Views print1 = new Views();
         print1.printStoreItems(toyStore);
 
         Raffle<Toy> newRaffle = new Raffle<>(toyStore);
-
+//        System.out.println(newRaffle.draw());
 //        for (Raffle.RaffleToy item: newRaffle.fillList()) {
 //            System.out.println(item);
 //        }
-        for (int i = 0; i < 10; i++) {
-            System.out.println(newRaffle.draw());
-        }
+//        for (int i = 0; i < 100; i++) {
+//            System.out.println(newRaffle.draw());
+//        }
 
+        Controller controller = new Controller();
+        controller.run();
 
     }
 }
