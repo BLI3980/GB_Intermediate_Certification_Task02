@@ -1,15 +1,15 @@
 package Model.Store;
 
-import Model.Toys.Toy;
+import Model.Store.Toys.Toy;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class StoreAbstract<T extends Toy> implements Iterable<Toy>{
+public abstract class StoreAbstract<Toy> implements Iterable<Toy>{
 
     private String storeName;
-    private List<Toy> toyStore;
+    private List<Toy> toyStore = new ArrayList<>();
 
     public StoreAbstract(String storeName) {
         this.storeName = storeName;
@@ -19,9 +19,13 @@ public abstract class StoreAbstract<T extends Toy> implements Iterable<Toy>{
     public StoreAbstract() {
     }
 
-    public StoreAbstract<T> addToy(T newToy) {
+    public StoreAbstract<Toy> addToy(Toy newToy) {
         toyStore.add(newToy);
         return this;
+    }
+
+    public void removeToy(Toy removeToy) {
+        toyStore.remove(removeToy);
     }
 
     public Iterator<Toy> iterator() {

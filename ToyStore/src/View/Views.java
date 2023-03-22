@@ -1,13 +1,13 @@
 package View;
 
+import Model.Store.Store;
 import Model.Store.StoreAbstract;
-import Model.Toys.Toy;
+import Model.Store.Toys.Toy;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Views {
-    private StoreAbstract<Toy> storeItems;
+    private Store<Toy> storeItems;
 
 
 
@@ -67,20 +67,20 @@ public class Views {
 //        }
 //    }
 
-    public static String mainMenu() {
+    public String mainMenu() {
         String command = prompt("\nChoose the action from the list below:\n" +
                 "1. See current stock\n" +
                 "2. Add new toy to the stock.\n" +
-                "3. Find a toy.\n" +
-                "4. Edit toy info (name, qty, w_factor, category, age group).\n" +
+                "3. Find a toy by ID.\n" +
+                "4. Edit toy info (name, qty, w_factor).\n" +
                 "5. Delete a toy from stock.\n" +
-                "6. Play a raffle.\n" +
-                "7. Exit" +
+                "6. Make a raffle.\n" +
+                "7. Exit.\n" +
                 "Type your choice here: ");
         return command;
     }
 
-    public static String prompt(String message) {
+    public String prompt(String message) {
         Scanner in = new Scanner(System.in);
         System.out.print(message);
         return in.nextLine();
@@ -92,20 +92,22 @@ public class Views {
 
 
 
+    public String stockEmptyPhrase() {
+        return String.format("These toys are finished. Try to draw again");
+    }
 
-
-    public void printStoreItems(StoreAbstract<Toy> items) {
-        System.out.printf("\nCurrent %s stock is as follows: \n",items.getStoreName().toUpperCase());
+    public void printStoreItems(Store<Toy> items) {
+//        System.out.printf("\nCurrent %s stock is as follows: \n",items.getStoreName().toUpperCase());
         separator();
-        System.out.printf("\n%12s %14s %15s %13s %17s %15s\n",
-                "ID", "NAME", "QUANTITY", "W-FACTOR", "CATEGORY", "AGE GROUP");
+        System.out.printf("\n%12s %14s %15s %13s %15s\n",
+                "ID", "NAME", "QUANTITY", "W-FACTOR", "CATEGORY");
         items.forEach(System.out::println);
         separator();
         System.out.println();
     }
 
     public void separator() {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 75; i++) {
             System.out.print("-");
         }
     }

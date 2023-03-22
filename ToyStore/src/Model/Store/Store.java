@@ -1,9 +1,10 @@
 package Model.Store;
 
-import Model.Toys.Teenager;
-import Model.Toys.Toy;
+import Model.Store.Toys.Toy;
 
-public class Store<T extends Toy> extends StoreAbstract<T>{
+import java.util.List;
+
+public class Store<Toy> extends StoreAbstract<Toy>{
 
 
     public Store(String storeName) {
@@ -14,14 +15,10 @@ public class Store<T extends Toy> extends StoreAbstract<T>{
         super();
     }
 
-    @Override
-    public Store<T> addToy(T newToy) {
-        super.addToy(newToy);
-        return this;
-    }
+
 
     @Override
     public String toString() {
-        return "SubStore: " +super.toString();
+        return "Store stock: " +super.toString();
     }
 }

@@ -1,40 +1,51 @@
 package Controller;
 
+import Model.Ops.StoreOpsImplement;
+import Model.Store.Raffle.Raffle;
+import Model.Store.Store;
+import Model.Store.Toys.Toy;
+import Model.Store.Toys.ToyManager;
 import View.Views;
 
-import java.util.List;
-
 public class Controller {
-    private Views view;
+    private final Views view = new Views();
+    private final StoreOpsImplement storeOps;
+    private Raffle toyRaffle;
+
+    public Controller(StoreOpsImplement storeOps, Raffle toyRaffle) {
+        this.storeOps = storeOps;
+        this.toyRaffle = toyRaffle;
+    }
 
     public void run(){
-        System.out.println("WELCOME TO THE TOY STORE! \n");
+        Store<Toy> storeStock = storeOps.storeStock();
+        toyRaffle = new Raffle<>(storeStock);
+        System.out.println("\nWELCOME TO THE TOY STORE!");
         while (true) {
             String command = view.mainMenu();
-//            String command = prompt("\nChoose the action from the list below:\n" +
-//                    "1. See current stock\n" +
-//                    "2. Add new toy to the stock.\n" +
-//                    "3. Find a toy.\n" +
-//                    "4. Edit toy info (name, qty, w_factor, category, age group).\n" +
-//                    "5. Delete a toy from stock.\n" +
-//                    "6. Exit the notebook.\n" +
-//                    "Type your choice here: ");
             if (command.equals("7")) return;
 
-            try {
+//            try {
                 switch (command) {
                     case "1":
-                        view.printStoreItems();
+                        view.printStoreItems(storeStock);
                         break;
                     case "2":
-//                        System.out.println("\n==========================");
-//                        List<Record> notes = controller.readAllNotes();
-//                        for (Record note: notes) {
-//                            System.out.println(note);
-//                        }
-//                        System.out.println("\n==========================");
+                        String name = view.prompt("Enter the name of the toy: ");
+                        int qty = Integer.parseInt(view.prompt("Enter the quantity: "));
+                        double w_factor = Double.parseDouble(view.prompt("Enter the weight factor: "));
+                        String category = view.prompt("Enter the category of the toy: ");
+                        Toy newToy = new ToyManager().getToy(category);
+                        newToy.setName(name);
+                        newToy.setQty(qty);
+                        newToy.setW_factor(w_factor);
+                        newToy.setCategory(category);
+                        storeStock.addToy(newToy);
                         break;
                     case "3":
+                        String idSearch = view.prompt("Enter id to search: ");
+                        Store<Toy> toyFound = storeOps.findToy(idSearch);
+                        view.printStoreItems(toyFound);
 //                        String id = prompt("Enter id of note: ");
 //                        Record record = controller.readNote(id);
 //                        System.out.println("\n==========================" +
@@ -42,22 +53,34 @@ public class Controller {
 //                                "==========================");
                         break;
                     case "4":
-//                        String idToChange = prompt("Enter ID of a note to edit: ");
-//                        controller.checkIfIdExists(idToChange);
-//                        controller.editNote(idToChange,noteDetails());
+                        System.out.println("\n                " +
+                                "Editing option is not implemented yet. ");
                         break;
                     case "5":
-//                        String idToDelete = prompt("Enter ID of a note to delete: ");
-//                        controller.checkIfIdExists(idToDelete);
-//                        controller.deleteNote(idToDelete);
-//                        System.out.println("\n==========================\n" +
-//                                "Note is deleted. See entire notebook to confirm.\n" +
-//                                "==========================\n" );
+                        System.out.println("\n                " +
+                                "Deleting option is not implemented yet. ");
+                        break;
+                    case "6":
+                        String prize = toyRaffle.draw();
+                        System.out.println(prize);
+                        if (prize.equals("None")) {
+                            view.stockEmptyPhrase();
+                        }else {
+                            Store<Toy> rafflePrizeList = toyRaffle.rafflePrizeList();
+
+                            System.out.println("\tCurrent Prize List: ");
+                            toyRaffle.addToPrizeList(prize, rafflePrizeList);
+                            for (Toy item : rafflePrizeList) {
+                                System.out.println(item);
+                            }
+                        }
+
+
                         break;
                 }
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());;
-            }
+//            } catch (Exception e) {
+//                System.out.println("Error: " + e.getMessage());;
+//            }
         }
     }
 }
